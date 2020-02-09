@@ -52,3 +52,20 @@ def add_comment(request,post_id):
             comment.post = post
             comment.save()
     return redirect('home')
+    
+@login_required(login_url='/accounts/login/')
+def search_results(request):
+    if 'searchItem' in request.GET and request.GET["searchItem"]:
+        search_term = request.GET.get("searchItem")
+        searched_user = Profile.search_by_username(search_term)
+        message = f"{search_term}"
+        context = {
+            'message': message,
+            'searched_user': searched_user
+        }
+        return render(request, 'search.html', context)
+
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'index.html',{"message":message})
+    
