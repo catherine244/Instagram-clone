@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
+from django.db import models
+from django.contrib.auth.models import User
+from django.urls import reverse
+from user.models import Profile
 from __future__ import unicode_literals
 
-from django.db import models
+
 
 
 # Create your models here.class Image(models.Model):
@@ -57,4 +61,9 @@ class Like(models.Model):
 
     def __str__(self):
         return 'Like: ' + self.user.username + ' ' + self.post.title
+    
+    
+class Followers(models.Model):
+    user = models.CharField(max_length=20,default='')
+    Follower = models.CharField(max_length=20,default='')    
     
