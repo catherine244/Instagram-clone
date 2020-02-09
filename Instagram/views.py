@@ -24,7 +24,7 @@ def home(request):
 
 class PostListView(LoginRequiredMixin,ListView):
     model=Image
-    template_name= 'instagram/image_list.html' # <app>/<model>_<view_type>.html
+    template_name= 'instagram/image_list.html' 
     
     context_object_name = 'posts'
     ordering = ['-time_created']
@@ -48,7 +48,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class create_comment(CreateView):
     model=Comment
-    template_name= 'instagram/image_list.html' # <app>/<model>_<view_type>.html
+    template_name= 'instagram/image_list.html' 
     
     context_object_name = 'comments'
     ordering = ['-posted_on']
@@ -76,8 +76,6 @@ def search_results(request):
     if 'searchItem' in request.GET and request.GET["searchItem"]:
         search_term = request.GET.get("searchItem")
         searched_user = Profile.search_by_username(search_term)
-        # user = User.objects.get(username=searched_user)
-        # user_images = Profile.objects.get(user=searched_user)
         message = f"{search_term}"
         context = {
             'message': message,
@@ -122,9 +120,6 @@ def post(request, pk):
 
 
 def likes(request, pk):
-    #likes = IGPost.objects.get(pk=pk).like_set.all()
-    #profiles = [like.user.userprofile for like in likes]
-
     post = Image.objects.get(pk=pk)
     profiles = Like.objects.filter(post=post)
 
@@ -182,6 +177,5 @@ def profile_settings(request, username):
 
 def follow(request,user_id):
     res = AjaxFollow(request.Get,request.user)
-    # context = { 'ajax_output': ajax_output()}
     context = { 'ajax_output': ajax_output()}
     return render(request,'instagram/profile.html',context)
