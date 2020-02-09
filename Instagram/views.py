@@ -42,3 +42,13 @@ def signout(request):
     logout(request)
     return redirect('logi     
         
+def add_comment(request,post_id):
+    post = get_object_or_404(Image, pk=post_id)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = request.user
+            comment.post = post
+            comment.save()
+    return redirect('home')
