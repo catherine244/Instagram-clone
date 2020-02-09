@@ -25,4 +25,9 @@ class PostCreateView(LoginRequiredMixin,CreateView):
         form.instance.author = self.request.user
         form.instance.user_profile= self.request.user.profile
         return super().form_valid(form)
+    
+
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Image
+    fields = ['title', 'content']    
         
