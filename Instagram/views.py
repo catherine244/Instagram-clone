@@ -102,6 +102,31 @@ def post(request, pk):
         'post': post,
         'liked': liked
     }
-    return render(request, 'instagram/post.html', context)       
+    return render(request, 'instagram/post.html', context)     
+    
+    
+def likes(request, pk):
+
+    post = Image.objects.get(pk=pk)
+    profiles = Like.objects.filter(post=post)
+
+    context = {
+        'header': 'Likes',
+        'profiles': profiles
+    }
+    return render(request, 'instagram/follow_list.html', context)
+
+
+def followers(request, username):
+    user = User.objects.get(username=username)
+    user_profile = Profile.objects.get(user=user)
+    profiles = user_profile.followers.all
+
+    context = {
+        'header': 'Followers',
+        'profiles': profiles,
+    }
+
+    return render(request, 'instagram/follow_list.html', context)      
         
     
