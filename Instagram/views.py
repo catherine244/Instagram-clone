@@ -84,6 +84,24 @@ def profile(request, username):
     }
     print(profile.user.username)
     print(profile.image)
-    return render(request, 'instagram/profile.html', context)        
+    return render(request, 'instagram/profile.html', context)     
+    
+    
+    
+@login_required(login_url='/accounts/login/')
+def post(request, pk):
+    post = Image.objects.get(pk=pk)
+    try:
+        like = Like.objects.get(post=post, user=request.user)
+        liked = 1
+    except:
+        like = None
+        liked = 0
+
+    context = {
+        'post': post,
+        'liked': liked
+    }
+    return render(request, 'instagram/post.html', context)       
         
     
