@@ -41,11 +41,11 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'Instagram.apps.InstagramConfig',
+    'instagram.apps.InstagramConfig',
     'crispy_forms',
     'bootstrap4',
     'friendship',
-    'User.apps.UserConfig',
+    'user.apps.UserConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -92,9 +92,9 @@ WSGI_APPLICATION = 'igclone.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'instagram',
+        'NAME': 'instagram1',
         'USER': 'cate',
-        'PASSWORD': 'cate1234',
+        'PASSWORD': 'cate4321',
     }
 }
 
