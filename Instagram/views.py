@@ -68,4 +68,22 @@ def search_results(request):
     else:
         message = "You haven't searched for any term"
         return render(request, 'index.html',{"message":message})
+       
+       
+@login_required(login_url='/accounts/login/')
+def profile(request, username):
+    user = User.objects.get(username=username)
+    if not user:
+        return redirect('home')
+
+    profile = Profile.objects.get(user=user)
+    context = {
+        'username': username,
+        'user': user,
+        'profile': profile
+    }
+    print(profile.user.username)
+    print(profile.image)
+    return render(request, 'instagram/profile.html', context)        
+        
     
