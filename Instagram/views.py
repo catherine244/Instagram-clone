@@ -160,3 +160,10 @@ def profile_settings(request, username):
         'form': form
     }
     return render(request, 'instagram/profile_settings.html', context)    
+    
+    
+ def follow(request,user_id):
+        res = AjaxFollow(request.Get,request.user)
+    # context = { 'ajax_output': ajax_output()}
+    context = { 'ajax_output': ajax_output()}
+    return render(request,'instagram/profile.html',context)   
