@@ -14,4 +14,9 @@ class CommentForm(forms.ModelForm):
     
     class Meta:
         model = Comment
-        fields = ['comment']        
+        fields = ['comment']   
+        
+class ProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['profile_path', 'bio']             
