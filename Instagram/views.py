@@ -16,3 +16,13 @@ class PostListView(LoginRequiredMixin,ListView):
     
     context_object_name = 'posts'
     ordering = ['-time_created']
+    
+class PostCreateView(LoginRequiredMixin,CreateView):
+    form_class = PhotoUploadModelForm
+    template_name = 'instagram/image_upload.html'
+ 
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.user_profile= self.request.user.profile
+        return super().form_valid(form)
+        
