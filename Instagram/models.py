@@ -1,15 +1,9 @@
-# -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 from user.models import Profile
-from __future__ import unicode_literals
-
-
-
-
-# Create your models here.class Image(models.Model):
-   class Image(models.Model):
+# Create your models here.
+class Image(models.Model):
     image = models.ImageField(upload_to='images/')
     author = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE,related_name="yg")
     title = models.CharField(max_length=60, null=True)
@@ -42,7 +36,6 @@ from __future__ import unicode_literals
     def update_image(cls,current_value,new_value):
         fetched_object = Image.objects.filter(author=current_value).update(author=new_value)
         return fetched_object
-    
 class Comment(models.Model):
     post = models.ForeignKey('Image', null=True)
     user = models.ForeignKey(User)
@@ -51,7 +44,8 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.comment
-    
+
+
 class Like(models.Model):
     post = models.ForeignKey('Image')
     user = models.ForeignKey(User)
@@ -61,9 +55,7 @@ class Like(models.Model):
 
     def __str__(self):
         return 'Like: ' + self.user.username + ' ' + self.post.title
-    
-    
+
 class Followers(models.Model):
     user = models.CharField(max_length=20,default='')
-    Follower = models.CharField(max_length=20,default='')    
-    
+    Follower = models.CharField(max_length=20,default='')
