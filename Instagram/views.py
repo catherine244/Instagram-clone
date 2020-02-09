@@ -129,4 +129,34 @@ def followers(request, username):
 
     return render(request, 'instagram/follow_list.html', context)      
         
-    
+@login_required(login_url='/accounts/login/')
+def following(request, username):
+    user = User.objects.get(username=username)
+    user_profile = Profile.objects.get(user=user)
+    profiles = user_profile.following.all
+
+    context = {
+        'header': 'Following',
+        'profiles': profiles
+    }
+    return render(request, 'instagram/follow_list.html', context)
+@login_required(login_url='/accounts/login/')
+def profile_settings(request, username):
+    user = User.objects.get(username=username)
+    if request.user != user:
+        return redirect('index')
+
+    if request.method == 'POST':
+        print(request.POST)
+        form = ProfileEditForm(request.POST, instance=user.profile, files=request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('profile', kwargs={'username': user.username}))
+    else:
+        form = ProfileEditForm(instance=user.profile)
+
+    context = {
+        'user': user,
+        'form': form
+    }
+    return render(request, 'instagram/profile_settings.html', context)    
