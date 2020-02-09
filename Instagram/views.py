@@ -1,9 +1,21 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+from django.shortcuts import render, redirect,get_object_or_404,reverse
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+)
+from annoying.decorators import ajax_request
+from .forms import PhotoUploadModelForm,CommentForm,ProfileEditForm
+from friendship.models import Friend, Follow, Block
+from django.contrib.auth.decorators import login_required
 
-from django.shortcuts import render
+from .models import Image,Comment
+from user.models import User,Profile
 
-# Create your views here.
+
 def home(request):
     posts= Image.objects.all(),
     commentform= CommentForm()
@@ -16,7 +28,10 @@ class PostListView(LoginRequiredMixin,ListView):
     
     context_object_name = 'posts'
     ordering = ['-time_created']
-    
+
+
+
+
 class PostCreateView(LoginRequiredMixin,CreateView):
     form_class = PhotoUploadModelForm
     template_name = 'instagram/image_upload.html'
@@ -29,19 +44,21 @@ class PostCreateView(LoginRequiredMixin,CreateView):
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Image
-    fields = ['title', 'content']   
-    
+    fields = ['title', 'content']
+
 class create_comment(CreateView):
     model=Comment
-    template_name= 'instagram/image_list.html' 
+    template_name= 'instagram/image_list.html' # <app>/<model>_<view_type>.html
     
     context_object_name = 'comments'
     ordering = ['-posted_on']
 
 def signout(request):
     logout(request)
-    return redirect('logi     
-        
+    return redirect('login')
+
+
+
 def add_comment(request,post_id):
     post = get_object_or_404(Image, pk=post_id)
     if request.method == 'POST':
@@ -52,12 +69,15 @@ def add_comment(request,post_id):
             comment.post = post
             comment.save()
     return redirect('home')
-    
+
+
 @login_required(login_url='/accounts/login/')
 def search_results(request):
     if 'searchItem' in request.GET and request.GET["searchItem"]:
         search_term = request.GET.get("searchItem")
         searched_user = Profile.search_by_username(search_term)
+        # user = User.objects.get(username=searched_user)
+        # user_images = Profile.objects.get(user=searched_user)
         message = f"{search_term}"
         context = {
             'message': message,
@@ -68,8 +88,7 @@ def search_results(request):
     else:
         message = "You haven't searched for any term"
         return render(request, 'index.html',{"message":message})
-       
-       
+
 @login_required(login_url='/accounts/login/')
 def profile(request, username):
     user = User.objects.get(username=username)
@@ -84,10 +103,7 @@ def profile(request, username):
     }
     print(profile.user.username)
     print(profile.image)
-    return render(request, 'instagram/profile.html', context)     
-    
-    
-    
+    return render(request, 'instagram/profile.html', context)
 @login_required(login_url='/accounts/login/')
 def post(request, pk):
     post = Image.objects.get(pk=pk)
@@ -102,10 +118,12 @@ def post(request, pk):
         'post': post,
         'liked': liked
     }
-    return render(request, 'instagram/post.html', context)     
-    
-    
+    return render(request, 'instagram/post.html', context)
+
+
 def likes(request, pk):
+    #likes = IGPost.objects.get(pk=pk).like_set.all()
+    #profiles = [like.user.userprofile for like in likes]
 
     post = Image.objects.get(pk=pk)
     profiles = Like.objects.filter(post=post)
@@ -127,8 +145,8 @@ def followers(request, username):
         'profiles': profiles,
     }
 
-    return render(request, 'instagram/follow_list.html', context)      
-        
+    return render(request, 'instagram/follow_list.html', context)
+
 @login_required(login_url='/accounts/login/')
 def following(request, username):
     user = User.objects.get(username=username)
@@ -159,11 +177,11 @@ def profile_settings(request, username):
         'user': user,
         'form': form
     }
-    return render(request, 'instagram/profile_settings.html', context)    
-    
-    
- def follow(request,user_id):
-        res = AjaxFollow(request.Get,request.user)
+    return render(request, 'instagram/profile_settings.html', context)
+
+
+def follow(request,user_id):
+    res = AjaxFollow(request.Get,request.user)
     # context = { 'ajax_output': ajax_output()}
     context = { 'ajax_output': ajax_output()}
-    return render(request,'instagram/profile.html',context)   
+    return render(request,'instagram/profile.html',context)
