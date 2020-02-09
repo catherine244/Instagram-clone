@@ -29,5 +29,16 @@ class PostCreateView(LoginRequiredMixin,CreateView):
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Image
-    fields = ['title', 'content']    
+    fields = ['title', 'content']   
+    
+class create_comment(CreateView):
+    model=Comment
+    template_name= 'instagram/image_list.html' 
+    
+    context_object_name = 'comments'
+    ordering = ['-posted_on']
+
+def signout(request):
+    logout(request)
+    return redirect('logi     
         
