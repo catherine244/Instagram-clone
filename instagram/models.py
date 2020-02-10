@@ -4,12 +4,12 @@ from django.urls import reverse
 from user.models import Profile
 # Create your models here.
 class Image(models.Model):
-    image = models.ImageField(upload_to='images/')
-    author = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE,related_name="yg")
+    image = models.ImageField(upload_to='images/', default="photos/dance.jpg")
+    author = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE,related_name="cate")
     title = models.CharField(max_length=60, null=True)
     time_created = models.DateTimeField(auto_now=True, auto_now_add=False)
     likes = models.IntegerField(default=0, null=True)
-    caption = models.CharField(max_length=140, default="")
+    caption = models.CharField(max_length=140, default="avechi")
     user_profile = models.ForeignKey(Profile, on_delete=models.CASCADE,null=True)
 
     def __str__(self):

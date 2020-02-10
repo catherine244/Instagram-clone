@@ -1,5 +1,5 @@
 import datetime
-import sha
+
 
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -20,12 +20,12 @@ class RegistrationTestCase(TestCase):
     
     """
     def setUp(self):
-        self.sample_user = RegistrationProfile.objects.create_inactive_user(username='alice',
-                                                                            password='secret',
-                                                                            email='alice@example.com')
-        self.expired_user = RegistrationProfile.objects.create_inactive_user(username='bob',
-                                                                             password='swordfish',
-                                                                             email='bob@example.com')
+        self.sample_user = RegistrationProfile.objects.create_inactive_user(username='cate',
+                                                                            password='cate1234',
+                                                                            email='catenduku995@gmail.com')
+        self.expired_user = RegistrationProfile.objects.create_inactive_user(username='cate',
+                                                                             password='cate1234',
+                                                                             email='catenduku995@gmail.com')
         self.expired_user.date_joined -= datetime.timedelta(days=settings.ACCOUNT_ACTIVATION_DAYS + 1)
         self.expired_user.save()
 
