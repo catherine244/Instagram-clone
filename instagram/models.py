@@ -4,7 +4,7 @@ from django.urls import reverse
 from user.models import Profile
 # Create your models here.
 class Image(models.Model):
-    image = models.ImageField(upload_to='images/', default="photos/dance.jpg")
+    image = models.ImageField(upload_to='images b/', default="photos/dance.jpg")
     author = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE,related_name="cate")
     title = models.CharField(max_length=60, null=True)
     time_created = models.DateTimeField(auto_now=True, auto_now_add=False)
