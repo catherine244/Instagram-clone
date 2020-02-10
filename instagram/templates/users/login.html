@@ -2,10 +2,11 @@
  {%load static%}
 {% load crispy_forms_tags %}
 {% block content %}
-<div class="well login-box center-block">
-        <img class="thumbnail" src="{% static 'photos/insta.jpg' %}" style="height:400px;width:450px;">
 
- 
+    
+<div class=" well login-box center-block">
+ <img class="thumbnail" src="{% static 'photos/insta.jpg' %}" style="height:400px;width:450px;">
+
         <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group">
@@ -24,10 +25,13 @@
         <div class="card mt-5" style="width: 28rem;">
         <div class="card-body text-center">
           <h5 class="card-title">Get the app.</h5>
+          <div id="app">
           <a href="https://itunes.apple.com/ke/app//id389801252?mt=8"><img src="{% static 'photos/appstore.png' %}"
               style="height:70px;width:200px;"></a>
           <a href="https://play.google.com/store?hl=en"><img src="{% static 'photos/playstore.png' %}" style="height:70px;width:200px;"></a>
         </div>
-      </div>  
+        </div>
+      </div>
     </div>
+
 {% endblock content %}
