@@ -26,7 +26,7 @@
 
 
 
-### Installing
+### Installion and Setup instructions
 
 *** To view the app.Visit -> [AvechiGram](http://avechigram.herokuapp.com/instagram/)
 
@@ -80,3 +80,10 @@
 7. Use the navigation bar/navbar/navigation pane/menu to navigate and explore the app.
 
 
+## Running the tests
+
+Use the command given below to run automated tests.
+
+
+        python manage.py test instagram
+        python manage.py test user
