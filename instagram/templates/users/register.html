@@ -5,20 +5,23 @@
         <p> Some Information Might be Incorrect </p>
       {% endif %}
 
+<div class="container">
+
 <div class="row">
   
 
-<div class="col-md-6 mt-5">
+  <div class="col-md-6">
+  <div>
       <img class="thumbnail" src="{% static 'photos/insta.jpg' %}" style="height:400px;width:450px;">
   </div>
+</div>
   <div class="col-md-6">
-      <div class="container-fluid">
 
     <img class="container__img"src="https://trello-attachments.s3.amazonaws.com/5a394d663fc5c0942f85f37c/5a82fd5dc4d760e847b6589a/eba48aa1d9fa53ddfacf75bd2c9853a6/500px-_logo.svg.png" alt="">
     <div class="container__fblogin">
       <button><i class="fa fa-facebook-square" style="color: white; font-size: 14px;"></i> Log in with Facebook</button>
     </div>
-    <p class="container__or">OR</p>
+    <!-- <p class="container__or">OR</p> -->
 
     <form class="container__form" action="/" method="post">
       {% csrf_token %}
@@ -33,7 +36,7 @@
     <p class="container__terms">By signin up, you agree to our <br> <strong>Terms & Privacy Policy.</strong></p>
 
 
-  </div>
+
   <div class="account">
       <p>Have an account? <a href="{% url 'login' %}">Log in</a></p>
     </div>
@@ -48,14 +51,15 @@
       </div> 
       </div>  
   </div>
+</div>
 
 
 
 
 
     <!-- empty div -->
-      <div class="container">
-    <div class="col-md-12">
+    <div class="container">
+        <div class="col-md-6">
       <div class="footer text-center">
         <ul id="footer1">
           <li>ABOUT US</li>
@@ -84,7 +88,7 @@
 
 {% endblock %}
 
-<div class="container">
+<!-- <div class="container">
 
   <img class="container__img"src="https://trello-attachments.s3.amazonaws.com/5a394d663fc5c0942f85f37c/5a82fd5dc4d760e847b6589a/eba48aa1d9fa53ddfacf75bd2c9853a6/500px-_logo.svg.png" alt="">
   <div class="container__fblogin">
@@ -108,3 +112,4 @@
 <div class="account">
   <p>Have an account? <a href="#">Log in</a></p>
 </div>
+</div> -->
